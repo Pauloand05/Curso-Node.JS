@@ -18,6 +18,10 @@ const Sequelize = require('sequelize');
             res.render("fomularios");
         })
 
+        app.post('/add', (req, res) => {
+            res.send("Formulário recebido com sucesso!");
+        })
+
 app.listen(8081, () => {
     console.log('Servidor rodando na url http://localhost:8081');
 });
