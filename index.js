@@ -14,7 +14,10 @@ const Post = require("./models/Post");
 
     // Rotas
         app.get("/", (req, res) => {
-            res.render("home")
+            Post.findAll({order: [['id', 'DESC']]}).then((posts) => {
+                res.render("home", {posts: posts})
+            })
+            
         })
 
         app.get('/cad', (req, res) => {
@@ -30,6 +33,14 @@ const Post = require("./models/Post");
             }).catch( (err) => {
                 res.send("Houve um erro: " + err);
             })
+        })
+
+        app.get('/deletar/:id', (req, res) => {
+            Post.destroy({where: {id: req.params.id}}).then(() => {
+                res.send("Postagem deletada com sucesso!");
+            }).catch((err) => {
+                res.send("Esta postagem não existe");
+            });
         })
 
 app.listen(8081, () => {
